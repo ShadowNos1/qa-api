@@ -30,7 +30,7 @@ GET /answers/{id} — получить ответ
 
 DELETE /answers/{id} — удалить ответ
 ```
-##Тесты находятся в internal/app/handlers_test.go и проверяют создание/получение вопросов и ответов.
+## Тесты находятся в internal/app/handlers_test.go и проверяют создание/получение вопросов и ответов.
 Команда
 ```
 go test ./test -v
