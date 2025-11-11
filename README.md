@@ -11,7 +11,7 @@ docker-compose up --build
 Сервер: http://localhost:8080
 База: Postgres на localhost:5432
 ```
-Эндпоинты
+## Эндпоинты
 Вопросы
 ```
 GET /questions/ — список вопросов
