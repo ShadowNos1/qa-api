@@ -8,9 +8,9 @@ API-сервис вопросов и ответов на Go с PostgreSQL.
 Terminal
 ```
 docker-compose up --build
+```
 Сервер: http://localhost:8080
 База: Postgres на localhost:5432
-```
 ## Эндпоинты
 Вопросы
 ```
