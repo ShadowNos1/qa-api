@@ -1,4 +1,4 @@
-package app
+package test
 
 import (
 	"bytes"
@@ -6,14 +6,17 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/ShadowNos1/qa-api/internal/app"
+	"github.com/ShadowNos1/qa-api/internal/model"
 )
 
 // === Вопросы ===
 
 func TestCreateAndListQuestions(t *testing.T) {
-	svc := NewInMemoryService()
-	h := NewHandler(svc)
-	router := NewRouter(h)
+	svc := app.NewInMemoryService()
+	h := app.NewHandler(svc)
+	router := app.NewRouter(h)
 
 	// Создание вопроса
 	qBody := []byte(`{"text":"Что такое Go?"}`)
@@ -35,7 +38,7 @@ func TestCreateAndListQuestions(t *testing.T) {
 		t.Fatalf("ожидали 200 OK, получили %d", w2.Result().StatusCode)
 	}
 
-	var questions []Question
+	var questions []model.Question
 	if err := json.NewDecoder(w2.Body).Decode(&questions); err != nil {
 		t.Fatalf("не удалось декодировать JSON: %v", err)
 	}
@@ -48,12 +51,12 @@ func TestCreateAndListQuestions(t *testing.T) {
 // === Ответы ===
 
 func TestCreateAndGetAnswer(t *testing.T) {
-	svc := NewInMemoryService()
-	h := NewHandler(svc)
-	router := NewRouter(h)
+	svc := app.NewInMemoryService()
+	h := app.NewHandler(svc)
+	router := app.NewRouter(h)
 
 	// Создадим вопрос
-	q := &Question{Text: "Вопрос для ответа?"}
+	q := &model.Question{Text: "Вопрос для ответа?"}
 	if err := svc.CreateQuestion(q); err != nil {
 		t.Fatalf("не удалось создать вопрос: %v", err)
 	}
@@ -78,7 +81,7 @@ func TestCreateAndGetAnswer(t *testing.T) {
 		t.Fatalf("ожидали 200 OK, получили %d", w2.Result().StatusCode)
 	}
 
-	var ans Answer
+	var ans model.Answer
 	if err := json.NewDecoder(w2.Body).Decode(&ans); err != nil {
 		t.Fatalf("не удалось декодировать JSON: %v", err)
 	}
